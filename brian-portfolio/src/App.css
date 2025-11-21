@@ -1,0 +1,253 @@
+.page {
+  min-height: 100vh;
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding: 4rem 0;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 720px;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 3vw, 3.5rem);
+  margin: 0;
+}
+
+.contact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.contact-pill {
+  border: 1px solid #cbd5f5;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #0f172a;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.contact-pill:hover {
+  background: #e2e8f0;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.lede {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #0f172abf;
+}
+
+.cta {
+  align-self: flex-start;
+  background: #0ea5e9;
+  color: #f8fafc;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgb(14 165 233 / 25%);
+}
+
+.skills,
+.experience,
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.section-heading h2 {
+  margin: 0.2rem 0 0;
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.skill-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.85rem;
+  padding: 1rem 1.25rem;
+  background: #fff;
+  box-shadow: 0 5px 15px rgb(15 23 42 / 4%);
+}
+
+.skill-card p {
+  margin: 0.35rem 0 0;
+  color: #334155;
+  line-height: 1.5;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.experience-card {
+  border-left: 3px solid #0ea5e9;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 5px 18px rgb(15 23 42 / 8%);
+}
+
+.experience-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.experience-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.experience-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.experience-meta h3 {
+  margin: 0;
+}
+
+.experience-dates {
+  margin: 0;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.experience-card ul {
+  margin: 0.75rem 0 0 1rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.other-experience {
+  background: #f1f5f9;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+.other-experience ul {
+  margin: 0.5rem 0 0 1rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.status {
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.status.error {
+  color: #dc2626;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  border: 1px solid #e2e8f0;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 5px 15px rgb(15 23 42 / 5%);
+}
+
+.project-card h3 {
+  margin: 0;
+}
+
+.project-card p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.tag-row {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-row li {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ghost {
+  border: 1px solid #cbd5f5;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #0f172a;
+  transition: background 0.2s ease;
+}
+
+.ghost:hover {
+  background: #e2e8f0;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 2rem;
+  text-align: center;
+  border: 2px dashed #cbd5f5;
+  border-radius: 1rem;
+  color: #475569;
+}

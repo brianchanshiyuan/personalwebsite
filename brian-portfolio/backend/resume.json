@@ -1,0 +1,87 @@
+{
+  "contact": {
+    "name": "Brian Chan",
+    "location": "Singapore",
+    "phone": "+65 9655 0456",
+    "email": "brianchan2002@gmail.com",
+    "linkedin": "https://linkedin.com/in/brian-chan-043a89253",
+    "github": "https://github.com/brianchanshiyuan"
+  },
+  "summary": "Computer Engineering + Quantitative Finance undergraduate at NUS with hands-on experience in backend systems, computer vision, and applied machine learning. Comfortable building datasets, training/evaluating models, and shipping full-stack products that integrate AI workloads.",
+  "skills": [
+    {
+      "label": "Languages",
+      "items": ["Python", "JavaScript (Node.js)", "Java", "C/C++", "SQL"]
+    },
+    {
+      "label": "Frameworks & Libraries",
+      "items": ["PyTorch", "TensorFlow", "React.js", "scikit-learn"]
+    },
+    {
+      "label": "ML & CV",
+      "items": ["YOLO", "ResNet", "RNN/CNN/MLP", "Transformers", "CLIP", "Dataset curation"]
+    },
+    {
+      "label": "Web & Cloud",
+      "items": ["REST APIs", "Docker", "Linux", "Git"]
+    },
+    {
+      "label": "Tools",
+      "items": ["LMStudio", "Excel/VBA", "ROS"]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Autodesk",
+      "role": "Software Development Engineer",
+      "start": "Jan 2026",
+      "end": "Present",
+      "logo": "/logos/autodesk.png",
+      "bullets": [
+        "Design and build desktop and cloud features that enhance Autodesk products across Windows, macOS, and Linux.",
+        "Collaborate with cross-functional partners to solve integration challenges across SDKs and shared components.",
+        "Prototype and evaluate new technologies/algorithms to keep the platform efficient and scalable.",
+        "Drive code quality through design discussions, peer reviews, and performance-focused implementation."
+      ]
+    },
+    {
+      "company": "HTX (Home Team Science & Technology Agency)",
+      "role": "Computer Vision Intern",
+      "start": "Jun 2025",
+      "end": "Present",
+      "logo": "/logos/htx.png",
+      "bullets": [
+        "Built CV pipelines for traffic-violation detection across surveillance video and large-scale datasets.",
+        "Iterated model performance and backend integration with cross-functional engineering teams.",
+        "Trained CNNs, RNNs, Transformers, and V-JEPA for temporal-spatial violation patterns; fine-tuned CLIP with LoRA.",
+        "Automated frame extraction, data labeling, and preprocessing for high-throughput workflows.",
+        "Integrated inference servers with REST APIs and achieved 85% precision / 70% recall / 20% FPR on V-JEPA collision detection."
+      ]
+    },
+    {
+      "company": "Razer Inc.",
+      "role": "Reliability Engineer Intern",
+      "start": "Jan 2025",
+      "end": "Jun 2025",
+      "logo": "/logos/razer.png",
+      "bullets": [
+        "Automated global fault categorization with Python scripts and LMStudio-powered local LLM calls.",
+        "Hit 95% classification accuracy and reduced customer-service workload by 90%.",
+        "Built VBA + Python pipelines for data cleaning and preprocessing."
+      ]
+    }
+  ],
+  "otherExperience": [
+    {
+      "company": "Sky & F Pte Ltd",
+      "role": "UPS Engineer",
+      "details": "Provided technical support for UPS systems and handled troubleshooting and maintenance."
+    },
+    {
+      "company": "Singapore Armed Forces",
+      "role": "Signal Specialist",
+      "details": "Managed network hardware and server racks across multiple locations."
+    }
+  ]
+}
+

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "hacx",
+    "name": "HACX: Portable Iris Authentication",
+    "description": "Raspberry Pi + React Native device that captures NIR iris scans, runs PyTorch inference via FastAPI, and verifies identities with Hamming-distance checks.",
+    "tech": ["Raspberry Pi", "React Native", "FastAPI", "PyTorch", "CNN"],
+    "githubUrl": "https://github.com/brianchanshiyuan/hacx-iris-auth"
+  },
+  {
+    "id": "crypto-live",
+    "name": "Crypto Live Pricing Platform",
+    "description": "Real-time cryptocurrency dashboard with Node.js REST APIs, React.js charts, and SQL persistence. Dockerized backend streams price ticks and portfolio stats.",
+    "tech": ["Node.js", "React.js", "SQL", "Docker", "REST APIs"],
+    "githubUrl": "https://github.com/brianchanshiyuan/crypto-live-pricing"
+  },
+  {
+    "id": "chatbot",
+    "name": "Command-Line Chatbot",
+    "description": "Java-based CLI assistant that preserves conversation history with serialized storage and supports task reminders and note taking.",
+    "tech": ["Java", "CLI"],
+    "githubUrl": "https://github.com/brianchanshiyuan/cli-chatbot"
+  },
+  {
+    "id": "slam-robot",
+    "name": "Arduino Robot & SLAM",
+    "description": "Maze-navigation robot powered by Arduino Mega + Raspberry Pi, integrating LiDAR and ROS SLAM for mapping and obstacle avoidance.",
+    "tech": ["Arduino", "Raspberry Pi", "ROS", "LiDAR", "SLAM"],
+    "githubUrl": "https://github.com/brianchanshiyuan/arduino-slam-robot"
+  },
+  {
+    "id": "famished-fish",
+    "name": "Famished Fish FPGA Game",
+    "description": "Custom Verilog game rendered on LED matrix, optimized state machines for smooth controls and low-latency graphics.",
+    "tech": ["FPGA", "Verilog", "Embedded"],
+    "githubUrl": "https://github.com/brianchanshiyuan/famished-fish-fpga"
+  }
+]
+
