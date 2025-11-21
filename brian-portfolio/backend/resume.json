@@ -2,12 +2,12 @@
   "contact": {
     "name": "Brian Chan",
     "location": "Singapore",
-    "phone": "+65 9655 0456",
     "email": "brianchan2002@gmail.com",
     "linkedin": "https://linkedin.com/in/brian-chan-043a89253",
     "github": "https://github.com/brianchanshiyuan"
   },
   "summary": "Computer Engineering + Quantitative Finance undergraduate at NUS with hands-on experience in backend systems, computer vision, and applied machine learning. Comfortable building datasets, training/evaluating models, and shipping full-stack products that integrate AI workloads.",
+  "story": "I started coding in Year 1 and quickly realised how much I enjoy building software that actually works. Since then, I’ve focused on software engineering and machine learning, especially where models and applications meet. I like working end-to-end, understanding how each component fits, and making things reliable and usable.\n\nI’m also exploring a bit of quant on the side because I find the mix of data, markets, and modelling interesting. It’s an area I’m still learning, but I enjoy experimenting with ideas and seeing how they behave.\n\nMy long-term goal is to build a practical software product or business of my own. If that doesn’t work out, I’ll start a gym. For now, I’m focused on learning, shipping projects, and improving my craft as an engineer.",
   "skills": [
     {
       "label": "Languages",

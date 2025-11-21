@@ -4,7 +4,7 @@
     "name": "HACX: Portable Iris Authentication",
     "description": "Raspberry Pi + React Native device that captures NIR iris scans, runs PyTorch inference via FastAPI, and verifies identities with Hamming-distance checks.",
     "tech": ["Raspberry Pi", "React Native", "FastAPI", "PyTorch", "CNN"],
-    "githubUrl": "https://github.com/brianchanshiyuan/hacx-iris-auth"
+    "githubUrl": "https://github.com/TheDinos/hacx"
   },
   {
     "id": "crypto-live",
@@ -18,7 +18,7 @@
     "name": "Command-Line Chatbot",
     "description": "Java-based CLI assistant that preserves conversation history with serialized storage and supports task reminders and note taking.",
     "tech": ["Java", "CLI"],
-    "githubUrl": "https://github.com/brianchanshiyuan/cli-chatbot"
+    "githubUrl": "https://github.com/AY2425S2-CS2113-W12-2/tp"
   },
   {
     "id": "slam-robot",
@@ -32,7 +32,7 @@
     "name": "Famished Fish FPGA Game",
     "description": "Custom Verilog game rendered on LED matrix, optimized state machines for smooth controls and low-latency graphics.",
     "tech": ["FPGA", "Verilog", "Embedded"],
-    "githubUrl": "https://github.com/brianchanshiyuan/famished-fish-fpga"
+    "githubUrl": "https://github.com/brianchanshiyuan/EE2026-Famished-Fish"
   }
 ]
 

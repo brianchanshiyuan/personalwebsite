@@ -1,4 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import Particles from 'react-tsparticles'
+import { loadFull } from 'tsparticles'
+import type { ISourceOptions } from 'tsparticles-engine'
+import { motion } from 'framer-motion'
 import './App.css'
 
 type Project = {
@@ -40,18 +44,122 @@ type Resume = {
     github: string
   }
   summary: string
+  story?: string
   skills: SkillCategory[]
   experience: Experience[]
   otherExperience?: OtherExperience[]
   projects?: Project[]
 }
 
+const THEME_KEY = 'portfolio-theme'
 const API_BASE = import.meta.env.VITE_API_BASE ?? 'http://localhost:4000'
+
+const navLinks = [
+  { id: 'story', label: 'Story' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+]
+
+const sectionMotion = {
+  initial: { opacity: 0, y: 32 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.25 },
+  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+}
 
 function App() {
   const [resume, setResume] = useState<Resume | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  const storedTheme =
+    typeof window !== 'undefined'
+      ? (window.localStorage.getItem(THEME_KEY) as 'light' | 'dark' | null)
+      : null
+
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window === 'undefined') return 'dark'
+    if (storedTheme) return storedTheme
+    return window.matchMedia('(prefers-color-scheme: light)').matches
+      ? 'light'
+      : 'dark'
+  })
+  const [userThemeSet, setUserThemeSet] = useState(() => Boolean(storedTheme))
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
+    setUserThemeSet(true)
+  }
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    document.documentElement.dataset.theme = theme
+    if (userThemeSet) {
+      window.localStorage.setItem(THEME_KEY, theme)
+    } else {
+      window.localStorage.removeItem(THEME_KEY)
+    }
+  }, [theme, userThemeSet])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const media = window.matchMedia('(prefers-color-scheme: light)')
+    const handleChange = (event: MediaQueryListEvent) => {
+      if (!userThemeSet) {
+        setTheme(event.matches ? 'light' : 'dark')
+      }
+    }
+    media.addEventListener('change', handleChange)
+    return () => media.removeEventListener('change', handleChange)
+  }, [userThemeSet])
+
+  const particlesInit = useCallback(async (engine: unknown) => {
+    await loadFull(engine as never)
+  }, [])
+
+  const particleOptions = useMemo<ISourceOptions>(() => {
+    const palette =
+      theme === 'dark'
+        ? ['#00E0FF', '#5AB4FF', '#7A4FFF']
+        : ['#0C63C7', '#5AB4FF', '#7A4FFF']
+
+    return {
+      background: { color: 'transparent' },
+      fullScreen: false,
+      fpsLimit: 60,
+      particles: {
+        number: {
+          value: 70,
+          density: { enable: true, area: 900 },
+        },
+        color: { value: palette },
+        links: {
+          enable: true,
+          color: theme === 'dark' ? '#5AB4FF' : '#0C63C7',
+          opacity: 0.18,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 1.1,
+          outModes: { default: 'out' },
+        },
+        opacity: { value: 0.35 },
+        size: { value: { min: 1, max: 3 } },
+      },
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: 'repulse' },
+          onClick: { enable: true, mode: 'push' },
+        },
+        modes: {
+          repulse: { distance: 120, duration: 0.4 },
+          push: { quantity: 2 },
+        },
+      },
+    }
+  }, [theme])
 
   useEffect(() => {
     const loadResume = async () => {
@@ -63,6 +171,7 @@ function App() {
         setResume({
           contact: data.contact,
           summary: data.summary,
+          story: data.story,
           skills: data.skills ?? [],
           experience: data.experience ?? [],
           otherExperience: data.otherExperience ?? [],
@@ -79,168 +188,271 @@ function App() {
   }, [])
 
   const projects = resume?.projects ?? []
+  const storyParagraphs = resume?.story
+    ?.split('\n\n')
+    .map((chunk) => chunk.trim())
+    .filter(Boolean)
 
   return (
     <div className="page">
-      <header className="hero">
-        <p className="eyebrow">{resume?.contact.location ?? 'Singapore'}</p>
-        <h1>{resume?.contact.name ?? 'Brian Chan'}</h1>
-        <p className="lede">{resume?.summary}</p>
-        <div className="contact-grid">
-          <a className="contact-pill" href={`tel:${resume?.contact.phone}`}>
-            {resume?.contact.phone}
+      <div className="grid-overlay" aria-hidden="true" />
+      <Particles
+        id="portfolio-particles"
+        className="particle-canvas"
+        init={particlesInit}
+        options={particleOptions}
+      />
+      <div className="content">
+        <motion.nav
+          className="nav"
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+          <a href="#hero" className="nav-logo">
+            BC
           </a>
-          <a
-            className="contact-pill"
-            href={`mailto:${resume?.contact.email}`}
-          >
-            {resume?.contact.email}
-          </a>
-          <a
-            className="contact-pill"
-            href={resume?.contact.linkedin}
-            target="_blank"
-            rel="noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a
-            className="contact-pill"
-            href={resume?.contact.github}
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
-        </div>
-      </header>
-
-      <section className="skills">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Technical Skills</p>
-            <h2>What I work with</h2>
+          <div className="nav-links">
+            {navLinks.map((link) => (
+              <a key={link.id} href={`#${link.id}`} className="nav-link">
+                {link.label}
+                <span className="nav-indicator" />
+              </a>
+            ))}
           </div>
-          {loading && <span className="status">Loading…</span>}
-          {error && <span className="status error">{error}</span>}
-        </div>
-        <div className="skill-grid">
-          {resume?.skills.map((skill) => (
-            <article className="skill-card" key={skill.label}>
-              <p className="eyebrow">{skill.label}</p>
-              <p>{skill.items.join(', ')}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? '🌙' : '☀️'}
+          </button>
+        </motion.nav>
 
-      <section className="experience">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Experience</p>
-            <h2>Recent roles</h2>
-          </div>
-        </div>
-        <div className="timeline">
-          {resume?.experience.map((exp) => (
-            <article className="experience-card" key={exp.company}>
-              <div className="experience-meta">
-                <div className="experience-title">
-                  {exp.logo && (
-                    <img
-                      className="experience-logo"
-                      src={exp.logo}
-                      alt={`${exp.company} logo`}
-                    />
-                  )}
-                  <div>
-                    <h3>
-                      {exp.role} · {exp.company}
-                    </h3>
-                    <p className="experience-dates">
-                      {exp.start} – {exp.end}
-                    </p>
-                  </div>
+        <main className="main">
+          <motion.section
+            id="hero"
+            className="hero-section section"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
+            <div className="hero_glow" aria-hidden="true" />
+            <p className="eyebrow">{resume?.contact.location ?? 'Singapore'}</p>
+            <h1>{resume?.contact.name ?? 'Brian Chan'}</h1>
+            <p className="lede">{resume?.summary}</p>
+            <div className="contact-grid">
+              <a className="contact-pill" href={`mailto:${resume?.contact.email}`}>
+                {resume?.contact.email}
+              </a>
+              {/* <a
+                className="contact-pill"
+                href={resume?.contact.linkedin}
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn
+              </a> */}
+              <a
+                className="contact-pill"
+                href={resume?.contact.github}
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub
+              </a>
+            </div>
+            <div className="hero-cta-row">
+              <a
+                className="cta"
+                href={resume?.contact.linkedin ?? '#'}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View LinkedIn
+              </a>
+              <a
+                className="ghost"
+                href="#projects"
+              >
+                Explore Projects
+        </a>
+      </div>
+          </motion.section>
+
+          {storyParagraphs && storyParagraphs.length > 0 && (
+            <motion.section
+              id="story"
+              className="story section lift-card"
+              {...sectionMotion}
+            >
+              <div className="section-heading">
+                <div>
+                  <p className="eyebrow">My Story</p>
+                  <h2>How I got here</h2>
                 </div>
               </div>
-              <ul>
-                {exp.bullets.map((point) => (
-                  <li key={point}>{point}</li>
+              <div className="story-body">
+                {storyParagraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
                 ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-        {!!resume?.otherExperience?.length && (
-          <div className="other-experience">
-            <p className="eyebrow">Other Experience</p>
-            <ul>
-              {resume.otherExperience.map((item) => (
-                <li key={item.company}>
-                  <strong>
-                    {item.role} · {item.company}
-                  </strong>{' '}
-                  — {item.details}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </section>
-
-      <section className="projects">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Projects</p>
-            <h2>Featured builds</h2>
-          </div>
-          {loading && <span className="status">Loading…</span>}
-        </div>
-
-        <div className="project-grid">
-          {projects.map((project) => (
-            <article className="project-card" key={project.id}>
-              <div>
-                <h3>{project.name}</h3>
-                <p>{project.description}</p>
               </div>
-              {project.tech && (
-                <ul className="tag-row">
-                  {project.tech.map((tag) => (
-                    <li key={tag}>{tag}</li>
+            </motion.section>
+          )}
+
+          <motion.section
+            id="skills"
+            className="skills section"
+            {...sectionMotion}
+          >
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">Technical Skills</p>
+                <h2>What I work with</h2>
+              </div>
+              {loading && <span className="status">Loading…</span>}
+              {error && <span className="status error">{error}</span>}
+            </div>
+            <div className="skill-grid">
+              {resume?.skills.map((skill) => (
+                <motion.article
+                  className="skill-card lift-card"
+                  key={skill.label}
+                  whileHover={{ scale: 1.01 }}
+                >
+                  <p className="eyebrow">{skill.label}</p>
+                  <p>{skill.items.join(', ')}</p>
+                </motion.article>
+              ))}
+            </div>
+          </motion.section>
+
+          <motion.section
+            id="experience"
+            className="experience section"
+            {...sectionMotion}
+          >
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">Experience</p>
+                <h2>Recent roles</h2>
+              </div>
+            </div>
+            <div className="timeline">
+              {resume?.experience.map((exp) => (
+                <motion.article
+                  className="experience-card lift-card"
+                  key={exp.company}
+                  whileHover={{ scale: 1.01, translateY: -4 }}
+                >
+                  <div className="experience-meta">
+                    <div className="experience-title">
+                      {exp.logo && (
+                        <img
+                          className="experience-logo"
+                          src={exp.logo}
+                          alt={`${exp.company} logo`}
+                        />
+                      )}
+                      <div>
+                        <h3>
+                          {exp.role} · {exp.company}
+                        </h3>
+                        <p className="experience-dates">
+                          {exp.start} – {exp.end}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    {exp.bullets.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                </motion.article>
+              ))}
+            </div>
+            {!!resume?.otherExperience?.length && (
+              <div className="other-experience lift-card">
+                <p className="eyebrow">Other Experience</p>
+                <ul>
+                  {resume.otherExperience.map((item) => (
+                    <li key={item.company}>
+                      <strong>
+                        {item.role} · {item.company}
+                      </strong>{' '}
+                      — {item.details}
+                    </li>
                   ))}
                 </ul>
-              )}
-              <div className="actions">
-                <a
-                  className="ghost"
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View on GitHub
-                </a>
-                {project.liveUrl && (
-                  <a
-                    className="ghost"
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Live Demo
-                  </a>
-                )}
               </div>
-            </article>
-          ))}
-          {!loading && !projects.length && (
-            <p className="empty-state">
-              No projects found yet. Add one via `POST /api/projects` or edit
-              `backend/projects.json`.
-            </p>
-          )}
-        </div>
-      </section>
+            )}
+          </motion.section>
+
+          <motion.section
+            id="projects"
+            className="projects section"
+            {...sectionMotion}
+          >
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">Projects</p>
+                <h2>Featured builds</h2>
+              </div>
+              {loading && <span className="status">Loading…</span>}
+            </div>
+
+            <div className="project-grid">
+              {projects.map((project) => (
+                <motion.article
+                  className="project-card lift-card"
+                  key={project.id}
+                  whileHover={{ scale: 1.01, translateY: -4 }}
+                >
+                  <div>
+                    <h3>{project.name}</h3>
+                    <p>{project.description}</p>
+                  </div>
+                  {project.tech && (
+                    <ul className="tag-row">
+                      {project.tech.map((tag) => (
+                        <li key={tag}>{tag}</li>
+                      ))}
+                    </ul>
+                  )}
+                  <div className="actions">
+                    <a
+                      className="ghost"
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      View on GitHub
+                    </a>
+                    {project.liveUrl && (
+                      <a
+                        className="ghost"
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
+                </motion.article>
+              ))}
+              {!loading && !projects.length && (
+                <p className="empty-state">
+                  No projects found yet. Add one via `POST /api/projects` or
+                  edit `backend/projects.json`.
+                </p>
+              )}
+            </div>
+          </motion.section>
+        </main>
+      </div>
     </div>
   )
 }
