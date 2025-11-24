@@ -5,6 +5,7 @@ type Theme = 'light' | 'dark';
 type ThemeContextType = {
   theme: Theme;
   toggleTheme: () => void;
+  isDark: boolean;
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -100,7 +101,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, isDark: theme === 'dark' }}>
       <div className={`theme-${theme} min-h-screen`}>
         {children}
       </div>
