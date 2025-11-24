@@ -33,7 +33,7 @@
   "experience": [
     {
       "company": "Autodesk",
-      "role": "Software Development Engineer",
+      "role": "Software Development Engineer Intern",
       "start": "Jan 2026",
       "end": "Present",
       "logo": "/logos/autodesk.png",
@@ -48,7 +48,7 @@
       "company": "HTX (Home Team Science & Technology Agency)",
       "role": "Computer Vision Intern",
       "start": "Jun 2025",
-      "end": "Present",
+      "end": "Dec 2025",
       "logo": "/logos/htx.png",
       "bullets": [
         "Built CV pipelines for traffic-violation detection across surveillance video and large-scale datasets.",

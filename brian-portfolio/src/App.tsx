@@ -239,6 +239,21 @@ function App() {
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             <div className="hero_glow" aria-hidden="true" />
+            <div className="profile-container">
+              <motion.div 
+                className="profile-image-wrapper"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+              >
+                <img 
+                  src="/logos/me.jpg" 
+                  alt="Brian Chan" 
+                  className="profile-image"
+                />
+                <div className="profile-frame" />
+              </motion.div>
+            </div>
             <p className="eyebrow">{resume?.contact.location ?? 'Singapore'}</p>
             <h1>{resume?.contact.name ?? 'Brian Chan'}</h1>
             <p className="lede">{resume?.summary}</p>
@@ -288,10 +303,7 @@ function App() {
               {...sectionMotion}
             >
               <div className="section-heading">
-                <div>
-                  <p className="eyebrow">My Story</p>
-                  <h2>How I got here</h2>
-                </div>
+                <p className="eyebrow">My Story</p>
               </div>
               <div className="story-body">
                 {storyParagraphs.map((paragraph) => (
@@ -422,15 +434,17 @@ function App() {
                     </ul>
                   )}
                   <div className="actions">
-                    <a
-                      className="ghost"
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View on GitHub
-                    </a>
-                    {project.liveUrl && (
+                    {project.id !== 'slam-robot' && (
+                      <a
+                        className="ghost"
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        View on GitHub
+                      </a>
+                    )}
+                    {project.liveUrl && project.id !== 'personal-website' && (
                       <a
                         className="ghost"
                         href={project.liveUrl}

@@ -78,7 +78,7 @@
   font-weight: 700;
   letter-spacing: 0.25em;
   text-decoration: none;
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .nav-links {
@@ -89,7 +89,7 @@
 
 .nav-link {
   position: relative;
-  color: var(--text-muted);
+  color: #ffffff;
   font-weight: 600;
   text-decoration: none;
   padding: 0.35rem 0;
@@ -97,7 +97,7 @@
 }
 
 .nav-link:hover {
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .nav-indicator {
@@ -121,7 +121,7 @@
 .theme-toggle {
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(6, 43, 87, 0.4);
-  color: var(--text-primary);
+  color: #ffffff;
   border-radius: 999px;
   padding: 0.35rem 0.75rem;
   cursor: pointer;
@@ -151,13 +151,70 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 1.5rem;
+  padding-top: 2rem;
+}
+
+.profile-container {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 1.5rem;
+}
+
+.profile-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.profile-image-wrapper h1 {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0.5rem 0 1rem;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.profile-image-wrapper:hover .profile-image {
+  transform: scale(1.05);
+}
+
+.profile-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.profile-container:hover .profile-frame {
+  border-color: rgba(90, 180, 255, 0.6);
+  transform: scale(1.02);
+  box-shadow: 0 0 0 6px rgba(90, 180, 255, 0.1);
 }
 
 .hero-section h1 {
   font-size: clamp(2.8rem, 4vw, 4rem);
   margin: 0;
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .hero_glow {
@@ -185,7 +242,7 @@
   padding: 0.6rem 1.3rem;
   border-radius: 999px;
   text-decoration: none;
-  color: var(--text-primary);
+  color: #ffffff;
   font-weight: 600;
   backdrop-filter: blur(6px);
   background: rgba(5, 23, 52, 0.35);
@@ -226,7 +283,7 @@
   border-radius: 999px;
   text-decoration: none;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #ffffff;
   background: rgba(5, 23, 52, 0.2);
   transition: background 0.3s ease, border-color 0.3s ease;
 }
@@ -250,15 +307,26 @@
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: #ffffff;
   margin: 0;
+}
+
+/* Style specifically for 'My Story' */
+#story .eyebrow {
+  font-size: 1.1rem;        /* Larger font size */
+  color: #b0b0b0;          /* Darker gray for better contrast */
+  font-weight: 600;        /* Bolder text */
+  letter-spacing: 0.25em;  /* Slightly more spacing */
+  margin-bottom: 1rem;     /* Add some space below */
 }
 
 .lede {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: var(--text-muted);
+  color: #ffffff;
+  color: #ffffff; /* Changed to white */
   margin: 0;
+  opacity: 0.9; /* Slightly transparent for better readability */
 }
 
 .story {
@@ -291,6 +359,7 @@
 
 .section-heading h2 {
   margin: 0.2rem 0 0;
+  color: #ffffff;
 }
 
 .skills,
@@ -308,18 +377,32 @@
 }
 
 .skill-card {
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
   padding: 1.25rem;
-  background: var(--surface-color);
-  color: var(--text-primary);
-  box-shadow: var(--shadow-soft);
+  background: #ffffff;  /* Solid white background */
+  color: #1a1a1a;      /* Dark text for better readability */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);  /* Matching shadow with experience cards */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
 }
 
 .skill-card p {
   margin: 0.35rem 0 0;
-  color: var(--text-muted);
-  line-height: 1.5;
+  color: #1a1a1a;   /* Dark text for better readability */
+  line-height: 1.6;
+  opacity: 0.95;    /* Slightly less transparent for better contrast */
+}
+
+/* Ensure all text in skill cards is dark */
+.skill-card,
+.skill-card .eyebrow {
+  color: #1a1a1a;
+  opacity: 0.95;
 }
 
 .timeline {
@@ -330,12 +413,27 @@
 
 .experience-card {
   border-left: 3px solid #0c63c7;
-  background: var(--surface-color);
+  background: #ffffff;  /* Changed to solid white */
   padding: 1.5rem;
   border-radius: 1rem;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-soft);
-  color: var(--text-primary);
+  border: 1px solid rgba(0, 0, 0, 0.1);  /* Darker border for better contrast */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);  /* More prominent shadow */
+  color: #1a1a1a;  /* Dark text for better readability on white */
+}
+
+/* Ensure all text in experience card is dark */
+.experience-card,
+.experience-card h3,
+.experience-card p,
+.experience-card li,
+.experience-card .experience-dates {
+  color: #1a1a1a;  /* Dark gray for better readability */
+  opacity: 0.95;    /* Slightly less transparent for better contrast */
+}
+
+/* Make sure bullet points are also dark */
+.experience-card ul {
+  color: #1a1a1a;
 }
 
 .experience-meta {
@@ -364,14 +462,16 @@
 
 .experience-dates {
   margin: 0;
-  color: var(--text-muted);
+  color: #ffffff;  /* Changed to white for better visibility */
   font-weight: 600;
+  opacity: 0.9;    /* Slightly transparent for better readability */
 }
 
 .experience-card ul {
   margin: 0.75rem 0 0 1rem;
-  color: var(--text-muted);
+  color: #ffffff;  /* Changed to white for better visibility */
   line-height: 1.6;
+  opacity: 0.9;    /* Slightly transparent for better readability */
 }
 
 .other-experience {
@@ -386,6 +486,11 @@
   margin: 0.5rem 0 0 1rem;
   color: var(--text-muted);
   line-height: 1.6;
+}
+
+.other-experience .eyebrow {
+  color: #1a1a1a;  /* Dark gray to match "Reliability Engineer Intern" */
+  opacity: 0.95;
 }
 
 .status {

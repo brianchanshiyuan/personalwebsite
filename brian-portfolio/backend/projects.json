@@ -1,5 +1,13 @@
 [
   {
+    "id": "personal-website",
+    "name": "Personal Portfolio Website",
+    "description": "A modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS. Features dark/light mode, project showcase, and interactive UI elements.",
+    "tech": ["React", "TypeScript", "Tailwind CSS", "Vite", "Responsive Design"],
+    "githubUrl": "https://github.com/brianchanshiyuan/personalwebsite",
+    "liveUrl": "https://brianchanshiyuan.github.io/personalwebsite/"
+  },
+  {
     "id": "hacx",
     "name": "HACX: Portable Iris Authentication",
     "description": "Raspberry Pi + React Native device that captures NIR iris scans, runs PyTorch inference via FastAPI, and verifies identities with Hamming-distance checks.",
