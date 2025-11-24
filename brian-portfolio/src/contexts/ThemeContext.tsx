@@ -5,7 +5,6 @@ type Theme = 'light' | 'dark';
 type ThemeContextType = {
   theme: Theme;
   toggleTheme: () => void;
-  isDark: boolean;
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -26,8 +25,6 @@ const getSavedTheme = (): Theme | null => {
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setThemeState] = useState<Theme>('light');
   const [isMounted, setIsMounted] = useState(false);
-  const isDark = theme === 'dark';
-
   // Set theme on initial load
   useEffect(() => {
     const savedTheme = getSavedTheme();
@@ -103,7 +100,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, isDark: theme === 'dark' }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div className={`theme-${theme} min-h-screen`}>
         {children}
       </div>
