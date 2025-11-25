@@ -19,7 +19,7 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',
     'http://localhost:5173',
-    'https://brianchanshiyuan.vercel.app',
+    'https://bcsy.vercel.app',
     'https://*.vercel.app'
   ],
   methods: ['GET', 'POST', 'OPTIONS'],
