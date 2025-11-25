@@ -1,13 +1,14 @@
-import express from 'express'
-import cors from 'cors'
-import fs from 'node:fs'
-import path from 'node:path'
+const express = require('express')
+const cors = require('cors')
+const fs = require('fs')
+const path = require('path')
 
 const app = express()
 const PORT = process.env.PORT ?? 4000
 
-const projectFile = path.resolve(process.cwd(), 'backend', 'projects.json')
-const resumeFile = path.resolve(process.cwd(), 'backend', 'resume.json')
+// In Vercel, __dirname points to the directory containing the current module
+const projectFile = path.join(__dirname, 'projects.json')
+const resumeFile = path.join(__dirname, 'resume.json')
 
 app.use(cors())
 app.use(express.json())
@@ -49,6 +50,12 @@ app.get('/api/resume', (_req, res) => {
   }
 })
 
-app.listen(PORT, () => {
-  console.log(`Portfolio API listening on http://localhost:${PORT}`)
-})
+// Export the Express API for Vercel
+module.exports = app
+
+// Only start the server when running locally
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Portfolio API listening on http://localhost:${PORT}`)
+  })
+}
