@@ -9,6 +9,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  base: "/",  // IMPORTANT: Required for Vercel deployment
   optimizeDeps: {
     include: ['@fontsource/sora', '@fontsource/inter', '@fontsource/jetbrains-mono'],
   },
