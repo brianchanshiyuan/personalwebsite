@@ -52,7 +52,10 @@ type Resume = {
 }
 
 const THEME_KEY = 'portfolio-theme'
-const API_BASE = import.meta.env.VITE_API_BASE ?? 'http://localhost:4000'
+const isProduction = import.meta.env.PROD
+const API_BASE = isProduction 
+  ? import.meta.env.VITE_API_PRODUCTION || '' 
+  : import.meta.env.VITE_API_BASE || 'http://localhost:4000'
 
 const navLinks = [
   { id: 'story', label: 'Story' },
