@@ -54,8 +54,8 @@ type Resume = {
 const THEME_KEY = 'portfolio-theme'
 const isProduction = import.meta.env.PROD
 const API_BASE = isProduction 
-  ? import.meta.env.VITE_API_PRODUCTION || '' 
-  : import.meta.env.VITE_API_BASE || 'http://localhost:4000'
+  ? import.meta.env.VITE_API_PRODUCTION
+  : import.meta.env.VITE_API_BASE 
 
 const navLinks = [
   { id: 'story', label: 'Story' },
@@ -165,29 +165,44 @@ function App() {
   }, [theme])
 
   useEffect(() => {
-    const loadResume = async () => {
+    const loadData = async () => {
       try {
-        setLoading(true)
-        const response = await fetch(`${API_BASE}/api/resume`)
-        if (!response.ok) throw new Error('Unable to fetch resume')
-        const data = await response.json()
-        setResume({
-          contact: data.contact,
-          summary: data.summary,
-          story: data.story,
-          skills: data.skills ?? [],
-          experience: data.experience ?? [],
-          otherExperience: data.otherExperience ?? [],
-          projects: data.projects ?? [],
-        })
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error')
-      } finally {
-        setLoading(false)
-      }
-    }
+        setLoading(true);
+        setError(null);
+        
+        // Fetch both resume and projects in parallel
+        const [resumeRes, projectsRes] = await Promise.all([
+          fetch(`${API_BASE}/api/resume`),
+          fetch(`${API_BASE}/api/projects`)
+        ]);
+        
+        if (!resumeRes.ok) throw new Error('Failed to fetch resume');
+        if (!projectsRes.ok) throw new Error('Failed to fetch projects');
 
-    loadResume()
+        const [resumeData, projectsData] = await Promise.all([
+          resumeRes.json(),
+          projectsRes.json()
+        ]);
+
+        // Merge the data
+        setResume({
+          contact: resumeData.contact,
+          summary: resumeData.summary,
+          story: resumeData.story,
+          skills: resumeData.skills ?? [],
+          experience: resumeData.experience ?? [],
+          otherExperience: resumeData.otherExperience ?? [],
+          projects: projectsData.projects ?? [],
+        });
+      } catch (err) {
+        console.error('Error loading data:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
   }, [])
 
   const projects = resume?.projects ?? []
@@ -419,7 +434,20 @@ function App() {
             </div>
 
             <div className="project-grid">
-              {projects.map((project) => (
+              {error ? (
+                <div className="error-message">
+                  <p>Failed to load projects. Please try again later.</p>
+                  <button 
+                    onClick={() => window.location.reload()}
+                    className="ghost"
+                  >
+                    Retry
+                  </button>
+                </div>
+              ) : loading ? (
+                <div className="loading-state">Loading projects...</div>
+              ) : projects.length > 0 ? (
+                projects.map((project) => (
                 <motion.article
                   className="project-card lift-card"
                   key={project.id}
@@ -459,8 +487,8 @@ function App() {
                     )}
                   </div>
                 </motion.article>
-              ))}
-              {!loading && !projects.length && (
+                ))
+              ) : (
                 <p className="empty-state">
                   No projects found yet. Add one via `POST /api/projects` or
                   edit `backend/projects.json`.
