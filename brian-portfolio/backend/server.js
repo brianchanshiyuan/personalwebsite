@@ -16,9 +16,15 @@ const resumeFile = join(__dirname, 'resume.json')
 
 // Configure CORS to allow requests from your frontend
 const corsOptions = {
-  origin: '*', // In production, replace with your frontend URL
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'https://brianchanshiyuan.vercel.app',
+    'https://*.vercel.app'
+  ],
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }
 
 app.use(cors(corsOptions))
