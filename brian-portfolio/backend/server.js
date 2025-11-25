@@ -14,8 +14,20 @@ const PORT = process.env.PORT ?? 4000
 const projectFile = join(__dirname, 'projects.json')
 const resumeFile = join(__dirname, 'resume.json')
 
-app.use(cors())
+// Configure CORS to allow requests from your frontend
+const corsOptions = {
+  origin: '*', // In production, replace with your frontend URL
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
+
+// Add a test endpoint to verify the server is running
+app.get('/api/health', (_req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Server is running' })
+})
 
 const loadJson = (filePath) => JSON.parse(readFileSync(filePath, 'utf-8'))
 const saveJson = (filePath, data) =>
